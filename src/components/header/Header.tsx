@@ -1,5 +1,6 @@
 import logo from "../../images/logo.png"
 import Image from "next/image"
+// import cartIcon from "../../images/favorite.png";
 import cartIcon from "../../images/cart.png";
 import { BiCaretDown } from "react-icons/bi";
 import { HiOutlineSearch } from "react-icons/hi";
@@ -11,6 +12,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect } from "react";
 import { addUser } from "@/store/nextSlice";
 import { SessionProvider } from "next-auth/react";
+import { FaHeart } from "react-icons/fa";
+
 
 const Header = () => {
     const { data: session } = useSession();
@@ -43,7 +46,7 @@ const Header = () => {
           <SlLocationPin />
           <div className="text-xs">
             <p>Deliver to</p>
-            <p className="text-white font-bold uppercase">India</p>
+            <p className="text-white font-bold uppercase">Egypt</p>
           </div>
         </div>
             {/* searchbar */}
@@ -74,18 +77,17 @@ const Header = () => {
             </div>
             }
             {/* favorite */}
-            <div className="text-xs text-gray-100 flex flex-col justify-center px-2 border
-            border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative">
-                <p>Marked</p>
-                <p className="=text-white font-bold">& Favorite</p>
-                {
-                    favoriteData.length > 0 && (
-                        <span className="absolute right-2 top-2 w-4 h-4
-                        border-[1px] border-gray-400 flex items-center justify-center text-xs
-                        text-amazon_yellow">{favoriteData.length}</span>
-                    )
-                }
-                </div>
+            
+            {/* <div className="text-xs text-gray-100 flex flex-col justify-center px-2 border */}
+            <Link href={"/Love"} className="flex items-center px-2  border
+                border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative">
+                <FaHeart className="w-auto object-cover h-5"/>
+                <p className="text-xs text-white font-bold mt-3">Favorite</p>
+                <span className="absolute text-amazon_yellow text-sm top-2 left-[40px] font-semibold">
+                    {favoriteData ? favoriteData.length: 0}
+                </span>
+            </Link>
+                {/* </div> */}
             {/* cart */}
             <Link href={"/cart"} className="flex items-center px-2  border
             border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative">
