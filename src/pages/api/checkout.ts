@@ -22,7 +22,7 @@ export default async function handler(
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
-      allowed_countries: ["IN", "US", "OM", "CA", "GB"],
+      allowed_countries: ["IN","EG", "US", "OM", "CA", "GB"],
     },
     line_items: modifiedItems,
     mode: "payment",
