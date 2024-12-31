@@ -46,8 +46,24 @@ export const nextSlice = createSlice({
             );
             existingProduct && existingProduct.quantity++;
         },
+        increaseQuantitlove:(state,action) => {
+            const existingProduct = state.favoriteData.find(
+                (item: StoreProduct) => item.id === action.payload.id
+            );
+            existingProduct && existingProduct.quantity++;
+        },
         decreaseQuantity:(state,action) =>{
             const existingProduct = state.productData.find(
+                (item: StoreProduct) => item.id === action.payload.id
+            );
+            if(existingProduct?.quantity === 1){
+                existingProduct.quantity = 1;
+            }else{
+                existingProduct!.quantity --;
+            }
+        },
+        decreaseQuantitlove:(state,action) =>{
+            const existingProduct = state.favoriteData.find(
                 (item: StoreProduct) => item.id === action.payload.id
             );
             if(existingProduct?.quantity === 1){
@@ -61,8 +77,16 @@ export const nextSlice = createSlice({
                 (item)=>item.id !== action.payload
             );
         },
+        deleteProductlove:(state,action) => {
+            state.favoriteData = state.favoriteData.filter(
+                (item)=>item.id !== action.payload
+            );
+        },
         resetCart:(state) => {
             state.productData = [];
+        },
+        resetFavorite:(state) => {
+            state.favoriteData = [];
         },
         addUser:(state,action) => {
             state.userInfo = action.payload
@@ -77,7 +101,7 @@ export const nextSlice = createSlice({
 
 });
 
-export const {addToCart,addToFavorite,increaseQuantity,decreaseQuantity,deleteProduct,
-    resetCart, addUser, removeUser, setAllProducts
+export const {addToCart,addToFavorite,increaseQuantity,increaseQuantitlove,decreaseQuantity,decreaseQuantitlove,deleteProduct,deleteProductlove,
+    resetCart,resetFavorite, addUser, removeUser, setAllProducts
 } = nextSlice.actions;
 export default nextSlice.reducer;
